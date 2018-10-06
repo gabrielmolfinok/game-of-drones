@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-
-import axios from 'axios';
+// import axios from 'axios'
+import API from './api'
 
 import * as userActions from './controllers/users'
 
@@ -26,15 +26,26 @@ export default class App extends Component {
 
         e.preventDefault()
 
+        const user = {
+            name: this.state.playerOne
+        }
+
         // Aqui logueo de participantes...
-        axios.get(`http://localhost:3000/users`, { name: this.state.playerOne })
-                .then(res => {
-                    console.log(res);
-                    console.log(res.data);
-                })
+        userActions.addUser(user)
         
-        
+           
     }
+
+    componentDidMount = () => {
+        API.get(`api/users`)
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+    
 
     render() {
 

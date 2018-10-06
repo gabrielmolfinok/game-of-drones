@@ -1,7 +1,7 @@
 // Express
 const express = require('express')
 const app = express()
-const router = express.Router();
+const path = require('path')
 
 // BodyParse - req.body
 const bodyParser = require('body-parser')
@@ -24,34 +24,74 @@ mongoose.connect(URI, { useNewUrlParser: true })
 const User = require('./src/models/user')
 
 
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+}
+
+app.use(allowCrossDomain);
+
+
 
 
 // Routes
-router.use((req, res, next) => {
-    console.log('Petición realizada.');
-    next();
-});
+app.get('/api/users', (req, res) => {
 
-router.get('/', (req, res) => {
+    User.find({ })
+            .exec( (err, usuarios) => {
 
-    res.json({
-        message: 'Bienvenido!'
-    })
-    .sendFile(path.join(__dirname, 'build', 'index.html'));
+                if (err) {
+                    return res.status(400).json({
+                        ok: false,
+                        err
+                    })
+                }
+
+                User.countDocuments({ }, (err, count) => {
+
+                    res.json({
+                        ok: true,
+                        usuarios,
+                        count
+                    })
+
+                } )
+
+                
+            })
 
 })
 
-router.post('/users', (req, res) => {
+app.post('/api/users', (req, res) => {
 
     let body = req.body
-    console.log(body)
 
-    res.json({
-        message: `Bienvenido! ${body.name}`
+    console.log(body);
+    
+    let user = new User({
+        name: body.user.name
     })
-    .sendFile(path.join(__dirname, 'build', 'index.html'));
+
+    user.save( (err, saved) => {
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+
+        res.json({ 
+            ok: true,
+            usuario: saved
+        })
+
+
+    })
 
 })
 
 app.listen(process.env.PORT || 8080)
-console.log('Running')
+console.log('Port: ', process.env.PORT || 8080)

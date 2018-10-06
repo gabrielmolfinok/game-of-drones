@@ -1,6 +1,15 @@
 
-import axios from 'axios';
+import API from './../api'
 
-export function addUser(name) {
-    return axios.post(`/users`, name);
+export function addUser(user) {
+
+    console.log(user);
+
+    API.post(`api/users`, { user })
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
 }
