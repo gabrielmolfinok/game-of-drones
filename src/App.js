@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-// import { addUser } from './controllers/users'
+
+import axios from 'axios';
+
+import * as userActions from './controllers/users'
 
 
 export default class App extends Component {
@@ -24,6 +27,12 @@ export default class App extends Component {
         e.preventDefault()
 
         // Aqui logueo de participantes...
+        axios.get(`http://localhost:3000/users`, { name: this.state.playerOne })
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                })
+        
         
     }
 
@@ -51,7 +60,7 @@ export default class App extends Component {
 
                         <div>
                             <label htmlFor="player2">Player Two</label>
-                            <input type="text" id="playerTwo" placeholder="Player one name..." onChange={this.handleInput.bind(this)} required />
+                            <input type="text" id="playerTwo" placeholder="Player two name..." onChange={this.handleInput.bind(this)} required />
                         </div>
 
                         <div>

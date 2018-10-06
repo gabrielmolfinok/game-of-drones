@@ -41,5 +41,17 @@ router.get('/', (req, res) => {
 
 })
 
+router.post('/users', (req, res) => {
+
+    let body = req.body
+    console.log(body)
+
+    res.json({
+        message: `Bienvenido! ${body.name}`
+    })
+    .sendFile(path.join(__dirname, 'build', 'index.html'));
+
+})
+
 app.listen(process.env.PORT || 8080)
 console.log('Running')
