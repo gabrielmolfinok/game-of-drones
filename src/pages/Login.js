@@ -31,17 +31,35 @@ export default class Login extends Component {
             name: this.state.playerTwo
         }
 
-        // Aqui logueo de participantes...
         userActions.addUser(playerOne)
-        userActions.addUser(playerTwo)
+                    // Usuario creado y lo manda al this.state
+                    .then(res => { this.setState({ playerOne: res.data.user }) })
+                    .catch(err => {
+                        // Usuario ya existe...
+                        // Entonces debemos buscarlo en la BD
+                        // y mandarlo al this.state
+                        userActions.getUserByName(playerOne.name)
+                                        .then(res => this.setState({ playerOne: res.data.user }))
+                                        .catch(err => console.log(err))
+                    })
 
-        this.props.history.push({ pathname: '/game', state: { playerOne, playerTwo }})
+        userActions.addUser(playerTwo)
+                    .then(res => { this.setState({ playerTwo: res.data.user }) })
+                    .catch(err => {
+                        userActions.getUserByName(playerTwo.name)
+                                        .then(res => this.setState({ playerTwo: res.data.user }))
+                                        .catch(err => console.log(err))
+                    })
+
+        this.props.history.push({ pathname: '/game', state: { players: this.state }})
         
            
     }
 
     componentDidMount = () => {
-        userActions.getUsers()
+        userActions.getAllUsers()
+                        .then(res => console.log(res))
+                        .catch(err => console.log(err))
     }
         
     render() {

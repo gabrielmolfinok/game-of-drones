@@ -1,25 +1,14 @@
 
 import API from './../api'
 
-export function getUsers() {
-
-    API.get(`api/users`)
-                .then(res => {
-                    console.log('GET Users: ', res);
-                })
-                .catch(err => {
-                    console.log(err);
-                })
+export function getAllUsers() {
+    return API.get('api/users')
 }
 
+export function getUserByName(userName) {
+    return API.get(`api/users/${userName}`)
+}
 
 export function addUser(user) {
-
-    API.post(`api/users`, { user })
-                .then(res => {
-                    console.log('POST User: ', res);
-                })
-                .catch(err => {
-                    console.log(err);
-                })
+    return API.post('api/users', { user })
 }

@@ -1,6 +1,13 @@
+// Express
 const express = require('express')
 const app = express()
 
+// BodyParse - req.body
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Model
 const User = require('./../models/user')
 
 
@@ -8,7 +15,7 @@ const User = require('./../models/user')
 app.get('/api/users', (req, res) => {
 
     User.find({ })
-            .exec( (err, usuarios) => {
+            .exec( (err, users) => {
 
                 if (err) {
                     return res.status(400).json({
@@ -21,11 +28,35 @@ app.get('/api/users', (req, res) => {
 
                     res.json({
                         ok: true,
-                        usuarios,
+                        users,
                         count
                     })
 
                 } )
+
+                
+            })
+
+})
+
+app.get('/api/users/:name', (req, res) => {
+
+    let name = req.params.name
+
+    User.find({ name })
+            .exec( (err, user) => {
+
+                if (err) {
+                    return res.status(400).json({
+                        ok: false,
+                        err
+                    })
+                }
+
+                res.json({
+                    ok: true,
+                    user
+                })
 
                 
             })
@@ -53,7 +84,7 @@ app.post('/api/users', (req, res) => {
 
         res.json({ 
             ok: true,
-            usuario: saved
+            user: saved
         })
 
 
