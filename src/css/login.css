@@ -1,7 +1,10 @@
-#login {
+#login,
+#stats {
     background: white;
-    display: inline-block;
+    display: inline-table;
+    margin: 20px;
     max-width: 450px;
     width: 100%;
     padding: 30px;
+    text-align: left;
 }

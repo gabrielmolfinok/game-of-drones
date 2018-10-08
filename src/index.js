@@ -9,6 +9,7 @@ import './css/form.css'
 import './css/game.css'
 import './css/login.css'
 import './css/master.css'
+import './css/stats.css'
 import './css/theme.css'
 
 // Pages

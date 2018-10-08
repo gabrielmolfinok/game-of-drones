@@ -7,6 +7,7 @@ body {
 }
 
 .btn,
+#stats,
 #player-turn p.active  {
     color: white;
     background: #242498;
@@ -23,21 +24,27 @@ form input[type="text"]:focus {
     border-bottom: 2px #242498 solid;
 }
 
-#score {
+#score,
+#stats header a.active,
+#stats-results article p {
     background: #13134c !important;
 }
 
 #login,
+#stats,
 .btn,
 #player-turn,
 #moves .move,
 #game-finished header,
 #round,
-#score {
+#score,
+#stats header a,
+#stats-results article p  {
     border-radius: 30px;
 }
 
 #login,
+#stats,
 #game-finished header {
     box-shadow: 0 30px 100px -20px #13134c33;
 }

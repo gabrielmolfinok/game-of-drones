@@ -5,6 +5,10 @@ export function getAllGames() {
     return API.get('api/games')
 }
 
+export function getPlayersWons(player) {
+    return API.get(`api/games/${player}`)
+}
+
 export function addGame(playerOne, playerTwo) {
     return API.post('api/games', {playerOne, playerTwo})
 }

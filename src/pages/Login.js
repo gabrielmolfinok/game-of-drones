@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import Stats from './../components/Stats'
+
 import * as userActions from './../controllers/users'
 import * as gameActions from './../controllers/games'
 
@@ -58,7 +60,7 @@ export default class Login extends Component {
         
     render() {
         return (
-            <div className="container">
+            <div className="container" align="center">
 
                 <section id="login">
                     <div className="container">
@@ -88,6 +90,8 @@ export default class Login extends Component {
 
                     </div>
                 </section>
+
+                <Stats />
                 
             </div>
         )
