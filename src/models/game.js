@@ -10,8 +10,13 @@ const GameSchema = new Schema({
         type: String,
         required: true
     },
-    playerMoves: {
-        type: Object
+    pOneScore: {
+        type: Number,
+        default: 0
+    },
+    pTwoScore: {
+        type: Number,
+        default: 0
     }
 });
 

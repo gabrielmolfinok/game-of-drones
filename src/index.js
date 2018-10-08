@@ -4,6 +4,7 @@ import { Router, Route, Switch } from 'react-router-dom'
 import App from './App'
 
 // Styles
+import './css/btn.css'
 import './css/master.css'
 
 // Pages

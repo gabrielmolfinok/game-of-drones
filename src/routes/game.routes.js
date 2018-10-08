@@ -4,35 +4,6 @@ const app = express()
 const Game = require('./../models/game')
 
 
-// GET
-// app.get('/api/moves', (req, res) => {
-
-//     Move.find({ })
-//             .exec( (err, moves) => {
-
-//                 if (err) {
-//                     return res.status(400).json({
-//                         ok: false,
-//                         err
-//                     })
-//                 }
-
-//                 Move.countDocuments({ }, (err, count) => {
-
-//                     res.json({
-//                         ok: true,
-//                         moves,
-//                         count
-//                     })
-
-//                 } )
-
-                
-//             })
-
-// })
-
-
 // POST
 app.post('/api/games', (req, res) => {
 
@@ -64,9 +35,32 @@ app.post('/api/games', (req, res) => {
 
 
 // PUT
-app.put('/api/games/:game', (req, res) => {
+app.put('/api/games/:id', (req, res) => {
 
-    // Actualizacion de un movimiento en juego X ...
+    // Finalizacion de un juego
+    let id = req.params.id
+    let body = req.body;
+
+    console.log(id);
+    console.log(body)
+
+    Game.findOneAndUpdate({_id: id}, {pOneScore: body.pOneScore, pTwoScore: body.pTwoScore}, {new: true}, (err, updated) => {
+        
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+
+        console.log(updated)
+
+        res.json({
+            ok: true,
+            game: updated
+        })
+
+    })
 
 })
 

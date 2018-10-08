@@ -1,0 +1,20 @@
+/* BTN */
+.btn {
+    display: inline-block;
+    padding: 8px 30px;
+    margin: 30px 10px 0;
+    background: red;
+    font-size: 1.1rem;
+    color: white;
+    outline: 0;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+[align="center"] .btn {
+    margin: 30px 5px;
+}
