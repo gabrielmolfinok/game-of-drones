@@ -7,14 +7,6 @@ const UserSchema   = new Schema({
         unique: true,
         required: [true, 'El nombre es necesario']
     },
-    played: {
-        type: Number,
-        default: 0
-    },
-    wins: {
-        type: Number,
-        default: 0
-    },
     created: {
         type: Date,
         default: new Date(),

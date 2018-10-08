@@ -1,21 +1,22 @@
 import React, { Component } from 'react'
 
 import * as userActions from './../controllers/users'
+import * as gameActions from './../controllers/games'
 
 export default class Login extends Component {
 
     state = {
-        playerOne: '',
-        playerTwo: ''
+        playerOneName: '',
+        playerTwoName: ''
     }
 
     handleInput = e => {
         if (e.target.id === 'playerOne') {
-            let playerOne = e.target.value
-            this.setState({ playerOne })
+            let playerOneName = e.target.value
+            this.setState({ playerOneName })
         } else {
-            let playerTwo = e.target.value
-            this.setState({ playerTwo })
+            let playerTwoName = e.target.value
+            this.setState({ playerTwoName })
         }
     }
 
@@ -23,35 +24,28 @@ export default class Login extends Component {
 
         e.preventDefault()
 
-        const playerOne = {
-            name: this.state.playerOne
+        const game = {
+            playerOne: this.state.playerOneName,
+            playerTwo: this.state.playerTwoName
         }
 
-        const playerTwo = {
-            name: this.state.playerTwo
-        }
-
-        userActions.addUser(playerOne)
+        userActions.addUser(game.playerOne)
                     // Usuario creado y lo manda al this.state
-                    .then(res => { this.setState({ playerOne: res.data.user }) })
-                    .catch(err => {
+                    .then(res => { game.playerOne = res.data.user })
+                    .catch(err => 
                         // Usuario ya existe...
-                        // Entonces debemos buscarlo en la BD
-                        // y mandarlo al this.state
-                        userActions.getUserByName(playerOne.name)
-                                        .then(res => this.setState({ playerOne: res.data.user }))
-                                        .catch(err => console.log(err))
-                    })
+                        console.log('El usuario 1 ya existe') )
 
-        userActions.addUser(playerTwo)
-                    .then(res => { this.setState({ playerTwo: res.data.user }) })
-                    .catch(err => {
-                        userActions.getUserByName(playerTwo.name)
-                                        .then(res => this.setState({ playerTwo: res.data.user }))
-                                        .catch(err => console.log(err))
-                    })
+        userActions.addUser(game.playerTwo)
+                    .then(res => { game.playerTwo = res.data.user })
+                    .catch(err => console.log('El usuario 2 ya existe') )
 
-        this.props.history.push({ pathname: '/game', state: { players: this.state }})
+        gameActions.addGame(game.playerOne, game.playerTwo)
+                    .then(res => {
+                        let game = res.data.game
+                        this.props.history.push({ pathname: '/game', state: { game }})
+                    })
+                    .catch(err => alert('Hubo error al crear el juego'))      
         
            
     }

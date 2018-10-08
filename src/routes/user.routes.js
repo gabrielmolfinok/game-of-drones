@@ -70,7 +70,7 @@ app.post('/api/users', (req, res) => {
     let body = req.body
     
     let user = new User({
-        name: body.user.name
+        name: body.user
     })
 
     user.save( (err, saved) => {
@@ -78,7 +78,9 @@ app.post('/api/users', (req, res) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
-                err
+                err: {
+                    message: 'El usuario ya existe'
+                }
             })
         }
 

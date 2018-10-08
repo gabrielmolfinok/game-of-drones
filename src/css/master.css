@@ -25,6 +25,18 @@ html, body {
     margin: 50px 0 0;
 }
 
+.white-txt,
+.white-txt h1,
+.white-txt h2,
+.white-txt h3,
+.white-txt h4,
+.white-txt h5,
+.white-txt h6,
+.white-txt p,
+.white-txt b {
+  color: white !important;
+}
+
 
 form {
     max-width: 400px;
@@ -58,6 +70,7 @@ form input[type="text"] {
 
 
 
+/* BTN */
 .btn {
     display: inline-block;
     padding: 8px 30px;
@@ -70,4 +83,49 @@ form input[type="text"] {
     cursor: pointer;
     text-transform: uppercase;
     font-weight: bold;
+}
+
+
+
+/* GAME */
+#player-turn {
+    display: inline-block;
+    max-width: 300px;
+    width: 100%;
+    padding: 10px;
+    background: #000;
+}
+
+#player-turn p {
+    float: left;
+    width: 50%;
+    padding: 10px;
+}
+
+#player-turn p.active {
+    background: blue;
+}
+
+
+
+#moves .move {
+    display: inline-table;
+    max-width: 300px;
+    width: 100%;
+    padding: 20px;
+    background: #000;
+    margin: 10px;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+#moves .move * {
+    pointer-events: none;
+}
+
+
+#player-turn,
+#player-turn p,
+#moves .move {
+    border-radius: 5px;
 }
