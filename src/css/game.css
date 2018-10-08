@@ -1,0 +1,83 @@
+/* GAME */
+#round,
+#score {
+    margin: auto auto -5px;
+    float: none;
+    max-width: 100px;
+    padding: 10px;
+}
+
+#round {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+#player-turn {
+    display: inline-block;
+    max-width: 300px;
+    width: 100%;
+    /* padding: 10px; */
+    background: white;
+    overflow: hidden;
+}
+
+#player-turn p {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    cursor: default;
+    user-select: none;
+    transition: .2s all;
+}
+
+#player-turn p {
+    opacity: 1
+}
+
+#score {
+    margin: -10px auto auto;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+#moves .move {
+    display: inline-table;
+    max-width: 300px;
+    width: 100%;
+    padding: 20px;
+    background: white;
+    margin: 10px;
+    text-transform: capitalize;
+    cursor: pointer;
+    user-select: none;
+    transition: .2s all;
+}
+
+#moves .move:hover {
+    transform: translate3d(0, -10px, 0)
+}
+
+#moves .move * {
+    pointer-events: none;
+}
+
+#game-finished {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+#game-finished header {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    background: white;
+    padding: 75px;
+}

@@ -29,8 +29,9 @@ export default class GameOver extends Component {
                 <div className="container">
                     
                     <header align="center">
+                        <img src="/img/icons/crown.svg" alt="crown" width="100" />
                         <h1>We have a winner!</h1>
-                        <p>{`${winner} is the new emperor!`}</p>
+                        <p><b>{winner}</b> is the new emperor!</p>
                         <a href="#" className="btn" onClick={this.restartGame.bind(this, game, history)}>Play again</a>
                         <Link to="/">Volver a inicio</Link>
                     </header>

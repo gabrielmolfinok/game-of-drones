@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     line-height: 1.7;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Krub', sans-serif;
     box-sizing: border-box
 }
 
@@ -37,34 +37,8 @@ html, body {
   color: white !important;
 }
 
-
-form {
-    max-width: 400px;
-}
-
-form div {
-    margin: 20px 0;
-    float: left;
-    width: 100%;
-}
-
-
-form label,
-form input {
-    display: inline-block;
-    width: 100%;
-}
-
-form label {
-    text-transform: uppercase
-}
-
-form input[type="text"] {
-    padding: 5px 10px;
-    font-size: 1.5rem;
-    outline: 0;
-    border: 0;
-    border-bottom: 2px #eee solid;
+p {
+    opacity: .8;
 }
 
 
@@ -74,71 +48,6 @@ form input[type="text"] {
 
 
 
-/* GAME */
-#player-turn {
-    display: inline-block;
-    max-width: 300px;
-    width: 100%;
-    padding: 10px;
-    background: #000;
-}
-
-#player-turn p {
-    float: left;
-    width: 50%;
-    padding: 10px;
-}
-
-#player-turn p.active {
-    background: blue;
-}
 
 
 
-#moves .move {
-    display: inline-table;
-    max-width: 300px;
-    width: 100%;
-    padding: 20px;
-    background: #000;
-    margin: 10px;
-    text-transform: capitalize;
-    cursor: pointer;
-}
-
-#moves .move * {
-    pointer-events: none;
-}
-
-
-#player-turn,
-#player-turn p,
-#moves .move,
-#game-finished header {
-    border-radius: 5px;
-}
-
-
-
-
-#game-finished {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-}
-
-#game-finished header {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    background: white;
-    padding: 100px;
-    box-shadow: 0 20px 100px #00000055;
-}

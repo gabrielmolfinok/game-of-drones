@@ -126,7 +126,7 @@ export default class Game extends Component {
 
     return (
 
-      <div id="moves" className="content white-txt">
+      <div id="moves" className="content">
 
         {this.state.dbMoves.map((move, i) => (
 
@@ -173,15 +173,22 @@ export default class Game extends Component {
         <section align="center">
           <div className="container">
           
-            <header>
-              <h1>{`Round ${this.state.round}`}</h1>
-              <h3>{`${this.state.pOneScore} : ${this.state.pTwoScore}`}</h3>
+            <header align="center">
+
+              <h3 id="round">Round {this.state.round}</h3>
+              
+              <div id="player-turn">
+                <p className={(this.state.turn === 1 ) ? "active" : ""}>{this.state.game.playerOne}</p>
+                <p className={(this.state.turn === 2 ) ? "active" : ""}>{this.state.game.playerTwo}</p>
+              </div>
+
+              <div id="score" className="white-txt">
+                <h3>{`${this.state.pOneScore} : ${this.state.pTwoScore}`}</h3>
+              </div>
+
             </header>
 
-            <div className="content white-txt" id="player-turn">
-              <p className={(this.state.turn === 1 ) ? "active" : ""}>{this.state.game.playerOne}</p>
-              <p className={(this.state.turn === 2 ) ? "active" : ""}>{this.state.game.playerTwo}</p>
-            </div>
+            
 
 
             {this.getMoves()}

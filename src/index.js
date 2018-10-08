@@ -5,7 +5,11 @@ import App from './App'
 
 // Styles
 import './css/btn.css'
+import './css/form.css'
+import './css/game.css'
+import './css/login.css'
 import './css/master.css'
+import './css/theme.css'
 
 // Pages
 import Login from './pages/Login'

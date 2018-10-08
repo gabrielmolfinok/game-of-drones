@@ -58,25 +58,25 @@ export default class Login extends Component {
         
     render() {
         return (
-            <div>
+            <div className="container">
 
-                <section>
+                <section id="login">
                     <div className="container">
 
                         <header>
-                            <h1>Game of Drones</h1>
+                            <h1>New game</h1>
                             <p>Enter your names to start the game.</p>
                         </header>
                     
                         <form className="content" onSubmit={this.handleSubmit.bind(this)} >
 
                             <div>
-                                <label htmlFor="player1">Player One</label>
+                                <label htmlFor="player1" className="accent">Player One</label>
                                 <input type="text" id="playerOne" placeholder="Player one name..." onChange={this.handleInput.bind(this)} required />
                             </div>
 
                             <div>
-                                <label htmlFor="player2">Player Two</label>
+                                <label htmlFor="player2" className="accent">Player Two</label>
                                 <input type="text" id="playerTwo" placeholder="Player two name..." onChange={this.handleInput.bind(this)} required />
                             </div>
 

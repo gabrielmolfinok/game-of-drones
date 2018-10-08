@@ -1,0 +1,62 @@
+/* Color: #242498 */
+/* Sec: #247398 */
+/* Dark: #13134c */
+
+body {
+    background: #eee;
+}
+
+.btn,
+#player-turn p.active  {
+    color: white;
+    background: #242498;
+    background: linear-gradient(120deg, #242498, #247398);
+}
+
+.accent {
+    color: #242498;
+    opacity: 1;
+}
+
+form input[type="text"]:hover,
+form input[type="text"]:focus {
+    border-bottom: 2px #242498 solid;
+}
+
+#score {
+    background: #13134c !important;
+}
+
+#login,
+.btn,
+#player-turn,
+#moves .move,
+#game-finished header,
+#round,
+#score {
+    border-radius: 30px;
+}
+
+#login,
+#game-finished header {
+    box-shadow: 0 30px 100px -20px #13134c33;
+}
+
+#score,
+.move {
+    box-shadow: 0 20px 50px -10px #13134c33;
+}
+
+.move:hover {
+    box-shadow: 0 30px 50px -10px #13134c33;
+}
+
+
+h1, h2, h3, h4, h5, h6, p, b {
+    color: #13134c;
+    font-weight: 400;
+}
+
+h1 {
+    font-size: 2rem;
+}

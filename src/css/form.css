@@ -1,0 +1,30 @@
+form {
+    max-width: 400px;
+}
+
+form div {
+    margin: 20px 0;
+    float: left;
+    width: 100%;
+}
+
+
+form label,
+form input {
+    display: inline-block;
+    width: 100%;
+    margin: 0 !important;
+}
+
+form label {
+    text-transform: uppercase
+}
+
+form input[type="text"] {
+    padding: 5px 10px;
+    font-size: 1.5rem;
+    outline: 0;
+    border: 0;
+    border-bottom: 2px #eee solid;
+    transition: .2s border;
+}
