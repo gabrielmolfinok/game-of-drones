@@ -26,8 +26,8 @@ ReactDOM.render(
 
         <App>
             <Switch>
-                <Route path="/" component={Home} exact />
                 <Route path="/game" component={Game} exact />
+                <Route path="/" component={Home} />
             </Switch>
         </App>
 

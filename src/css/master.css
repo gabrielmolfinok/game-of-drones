@@ -10,10 +10,6 @@ html, body {
     height: 100%;
 }
 
-#main {
-    padding: 100px 0 0 0;
-}
-
 .container {
     float: none;
     width: 90%;

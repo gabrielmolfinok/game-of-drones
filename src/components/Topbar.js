@@ -5,7 +5,7 @@ export default () => {
 
         <nav align="center">
             <div className="container">
-                <h1>Paper, Rock, Scissors</h1>
+                <img src="/img/logo.svg" width="250" alt="logo" />
             </div>
         </nav>
 

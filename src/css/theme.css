@@ -28,16 +28,21 @@ form input[type="text"]:focus {
     border-bottom: 2px #242498 solid;
 }
 
+#stats-categories a {
+    background: #13134c22 !important;
+}
+
+#stats-categories a:hover {
+    background: #13134c55 !important;
+}
+
 #score,
-#stats-categories button.active,
-#stats-categories button.active:hover,
+#stats-categories a[aria-current="page"],
+#stats-categories a[aria-current="page"]:hover,
 #stats-results article p {
     background: #13134c !important;
 }
 
-#stats-categories button:hover {
-    background: #13134c33 !important;
-}
 
 #login,
 #stats,
@@ -49,8 +54,9 @@ form input[type="text"]:focus {
 #score,
 #rounds-details article,
 #rounds-details article h3,
-#stats-categories button,
-#stats-results article p  {
+#stats-categories a,
+#stats-results article p,
+form#player-finder input  {
     border-radius: 30px;
 }
 

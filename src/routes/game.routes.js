@@ -40,49 +40,56 @@ app.get('/api/games/player/:name', (req, res) => {
 
     let name = req.params.name
 
-    Game.find( {
+    // Primero encuentra el jugador...
+    User.find({ name })
+    .exec( (err, dbPlayer) => {
 
-        $or: [ 
-            { $and: [ { playerOne: name }, { pOneScore: { $eq: 3 } } ] },
-            { $and: [ { playerTwo: name }, { pTwoScore: { $eq: 3 } } ] } 
-        ]
-        
-        } )
+        try {
+            
+            let player = dbPlayer[0]
     
-        .exec( (err, games) => {
-
-                    if (err) {
-                        return res.status(400).json({
-                            ok: false,
-                            err
-                        })
-                    }
-
+            // Luego encuentra todos los partidos en los que jugo
+            Game.find({ $or: [{ playerOne: player.name }, { playerTwo: player.name }]})
+            .exec((err, gamesPlayed) => {
+    
+                // La longitud del arreglo significa los partidos que jugó
+                player.played = gamesPlayed.length
+                
+                // Luego encuentra en los cuales ganó
+                Game.find( { $or: [ 
+                        { $and: [ { playerOne: name }, { pOneScore: { $eq: 3 } } ] },
+                        { $and: [ { playerTwo: name }, { pTwoScore: { $eq: 3 } } ] } 
+                    ] } )
+                .exec((err, gamesWon) => {
+    
+                    // La longitud del arreglo significa los partidos que ganó
+                    player.won = gamesWon.length
+                    
                     res.json({
                         ok: true,
-                        player: name,
-                        wins: games.length
+                        name: player.name,
+                        wins: player.won,
+                        played: player.played,
+                        created: player.created
                     })
-
                     
                 })
+    
+            })
+
+        } catch(err) {
             
-
-})
-
-// GET Players and their wons (In process)
-app.get('/api/games/top', (req, res) => {
-
-    User.aggregate([{
-        $lookup: {
-          from: 'users',
-          pipeline: [  ],
-          as: 'games'
+            res.json({
+                ok: false,
+                err: {
+                    message: 'El usuario no existe'
+                }
+            })
+            
         }
-    }]).exec(function(err, users) {
-        console.log(users)
-    });
 
+
+    })
 
 })
 

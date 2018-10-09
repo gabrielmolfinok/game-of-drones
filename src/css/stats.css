@@ -4,7 +4,7 @@
     padding: 10px 0;
 }
 
-#stats-categories button {
+#stats-categories a {
     cursor: pointer;
     display: inline-block;
     padding: 5px 20px;
