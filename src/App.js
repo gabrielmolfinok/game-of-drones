@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import Topbar from './components/Topbar'
+
 
 export default class App extends Component {
 
@@ -8,7 +10,11 @@ export default class App extends Component {
         return (
             <div>
 
-                {this.props.children}
+                <Topbar />
+
+                <div id="main">
+                    {this.props.children}
+                </div>
 
             </div>
         )

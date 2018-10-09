@@ -4,6 +4,19 @@
     padding: 10px 0;
 }
 
+#stats-categories button {
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px 20px;
+    margin: 0 10px 5px 0;
+    text-decoration: none;
+    color: white;
+    border: 0;
+    background: transparent;
+    font-size: 1rem;
+    transition: .2s all;
+}
+
 #stats-results article * {
     display: inline-block;
 }
@@ -12,14 +25,4 @@
     opacity: 1;
     margin: 0 20px;
     padding: 5px 10px;
-}
-
-#stats-categories div {
-    cursor: pointer;
-    display: inline-block;
-    padding: 5px 20px;
-    margin: 0 10px 5px 0;
-    text-decoration: none;
-    color: white;
-    transition: .2s all;
 }

@@ -10,8 +10,8 @@ html, body {
     height: 100%;
 }
 
-#root {
-    padding: 100px 0 0;
+#main {
+    padding: 100px 0 0 0;
 }
 
 .container {
@@ -22,7 +22,7 @@ html, body {
 }
 
 .content {
-    margin: 50px 0 0;
+    margin: 30px 0 0;
 }
 
 .white-txt,

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
-import GameOver from './../components/GameOver'
+import GameOver from '../components/Game/GameOver'
+import MovesList from '../components/Game/MovesList';
 
 import * as moveActions from './../controllers/moves'
 import * as gameActions from './../controllers/games'
@@ -10,7 +11,7 @@ export default class Game extends Component {
 
   state = {
     turn: 1,
-    moves: [],
+    lastMove: {},
     dbMoves: [],
     pOneScore: 0,
     pTwoScore: 0,
@@ -24,7 +25,7 @@ export default class Game extends Component {
     this.setState({
       rounds: undefined,
       turn: 1,
-      moves: [],
+      lastMove: {},
       pOneScore: 0,
       pTwoScore: 0,
       game,
@@ -34,33 +35,55 @@ export default class Game extends Component {
     console.log('Cambio a juego: ', game.id);
   }
 
+  componentWillUnmount = () => {
+    // Se debe borrar el state
+    try {
+      
+      this.setState({
+        rounds: undefined,
+        turn: 1,
+        lastMove: {},
+        dbMoves: [],
+        pOneScore: 0,
+        pTwoScore: 0,
+        game: {},
+        gameOver: false,
+        winner: ''
+      })
+
+    } catch (error) {
+
+      console.log('Solucion')
+      
+    }
+  }
+
 
   endGame = (winner, pOneScore, pTwoScore) => {
 
-    console.log(pOneScore, pTwoScore)
     gameActions.endGame(this.state.game, pOneScore, pTwoScore)
                   .then(res => console.log(res))
 
     this.setState({ gameOver: true, winner })
+
   }
 
   ifOver(pOneScore, pTwoScore) {
+
+    // Esta funcion controla si el score es de 3 para alguno de los jugadores
     if (pOneScore === 3) {
-      
-      // alert('Player One wins')
       this.endGame(this.state.game.playerOne, pOneScore, pTwoScore)
-
     } else if (pTwoScore === 3) {
-      
-      // alert('Player Two wins')
       this.endGame(this.state.game.playerTwo, pOneScore, pTwoScore)
+    }
 
-    } 
+    return
+
   }
 
   getRoundWinner = move => {
     
-    let lastMove = this.state.moves[this.state.moves.length-1]
+    let lastMove = this.state.lastMove
 
     if (move.kills === lastMove.name) {
         
@@ -93,45 +116,42 @@ export default class Game extends Component {
 
       // Comprobar quien gano
       let roundWinner = this.getRoundWinner(move)
-
-      this.setState(prevState => ({
-        moves: [...prevState.moves, move]
-      }))
-
       
       if (!this.state.rounds) {
-        // Primer Round
+
+        // Es el primer Round, se debe crear en el state
         this.setState({
-          rounds: [
-            {
-              winner: roundWinner
-            }
-          ]
+          rounds: [ { winner: roundWinner } ]
         })
 
       } else {
         
+        // No es el primer Round, se debe agregar éste útlimo al state
         this.setState(prevState => ({
           rounds: [...prevState.rounds, { number: this.state.rounds.length, winner: roundWinner }]
         }))
         
       }      
 
+      // Se cambia de turno
       this.setState({
         turn: 1
       })
 
     } else {
 
-      this.setState(prevState => ({
-        moves: [...prevState.moves, move]
-      }))
-
+      // Se cambia de turno
       this.setState({
         turn: 2
       })
 
     }
+    
+    // Se suma el último movimiento al state
+    this.setState({ lastMove: move })
+
+    return
+
 
   }
 
@@ -142,17 +162,7 @@ export default class Game extends Component {
 
     return (
 
-      <div id="moves" className="content">
-
-        {this.state.dbMoves.map((move, i) => (
-
-          <article className="move" key={i} onClick={this.handleMoveClick.bind(this, move)}>
-            <h2>{move.name}</h2>
-          </article>
-
-        ))}
-
-      </div>
+      <MovesList moves={this.state.dbMoves} click={this.handleMoveClick} />
 
 
     )
@@ -160,52 +170,21 @@ export default class Game extends Component {
   }
 
   showRounds() {
-    if (this.state.rounds) {
-      // Ya paso el primer Round
-      return (
-        <div className="content" align="left">
-          <h2>Rounds details</h2>
-          <div id="rounds-details">
-            {this.state.rounds.map((round, i) => (
-              <article>
-                <h3>Round: {i+1}</h3>
-                <p>Winner: {round.winner}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      )
-    } else {
-      return (
-        <div className="content" align="left">
-          <h2>Rounds details</h2>
-          <div id="rounds-details">
-            <article>
-              <h3>Round: 1</h3>
-              <p>Winner: Waiting...</p>
-            </article>
-          </div>
-        </div>
-      )
-    }
-  }
-  
 
-  componentWillUnmount = () => {
-    // Se debe borrar el state
-    this.setState({
-      round: 1,
-      turn: 1,
-      moves: [],
-      dbMoves: [],
-      pOneScore: 0,
-      pTwoScore: 0,
-      game: {},
-      gameOver: false,
-      winner: ''
-    })
-  }
-  
+    let rounds = this.state.rounds
+
+    return (
+      <div>
+        {rounds.map((round, i) => (
+            <article key={i}>
+              <h3>{i+1}</h3>
+              <p>{(round.winner === 'Draw') ? round.winner : `${ round.winner } wins`}</p>
+            </article>
+          ))}
+      </div>
+    )
+
+  }  
 
   render() {
 
@@ -234,8 +213,22 @@ export default class Game extends Component {
         
             {this.getMoves()}
 
-            {this.showRounds()}
-  
+
+            <div className="content" align="left">
+              <h2>Rounds details</h2>
+              <div id="rounds-details">
+
+                {(this.state.rounds) ? this.showRounds() : (
+                  
+                  <article>
+                    <h3>1</h3>
+                    <p>Waiting...</p>
+                  </article>
+
+                )}
+
+              </div>
+            </div>
 
           </div>
         </section>

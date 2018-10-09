@@ -11,9 +11,10 @@ import './css/login.css'
 import './css/master.css'
 import './css/stats.css'
 import './css/theme.css'
+import './css/topbar.css'
 
 // Pages
-import Login from './pages/Login'
+import Home from './pages/Home'
 import Game from './pages/Game'
 
 import createBrowserHistory from 'history/createBrowserHistory';
@@ -25,7 +26,7 @@ ReactDOM.render(
 
         <App>
             <Switch>
-                <Route path="/" component={Login} exact />
+                <Route path="/" component={Home} exact />
                 <Route path="/game" component={Game} exact />
             </Switch>
         </App>

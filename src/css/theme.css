@@ -29,13 +29,13 @@ form input[type="text"]:focus {
 }
 
 #score,
-#stats-categories div.active,
-#stats-categories div.active:hover,
+#stats-categories button.active,
+#stats-categories button.active:hover,
 #stats-results article p {
     background: #13134c !important;
 }
 
-#stats-categories div:hover {
+#stats-categories button:hover {
     background: #13134c33 !important;
 }
 
@@ -47,7 +47,9 @@ form input[type="text"]:focus {
 #game-finished header,
 #round,
 #score,
-#stats-categories div,
+#rounds-details article,
+#rounds-details article h3,
+#stats-categories button,
 #stats-results article p  {
     border-radius: 30px;
 }
@@ -59,7 +61,8 @@ form input[type="text"]:focus {
 }
 
 #score,
-.move {
+.move,
+#rounds-details article {
     box-shadow: 0 20px 50px -10px #13134c33;
 }
 

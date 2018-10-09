@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 
-import Stats from './../components/Stats'
-
-import * as userActions from './../controllers/users'
-import * as gameActions from './../controllers/games'
+import * as userActions from '../controllers/users'
+import * as gameActions from '../controllers/games'
 
 export default class Login extends Component {
 
@@ -47,22 +45,15 @@ export default class Login extends Component {
                         let game = res.data.game
                         this.props.history.push({ pathname: '/game', state: { game }})
                     })
-                    .catch(err => alert('Hubo error al crear el juego'))      
+                    .catch(err => {alert('Hubo error al crear el juego'); console.log(err)})      
         
            
-    }
-
-    componentDidMount = () => {
-        userActions.getAllUsers()
-                        .then(res => console.log(res))
-                        .catch(err => console.log(err))
     }
         
     render() {
         return (
-            <div className="container" align="center">
 
-                <section id="login">
+            <section id="login">
                     <div className="container">
 
                         <header>
@@ -83,17 +74,13 @@ export default class Login extends Component {
                             </div>
 
                             <div>
-                                <input type="submit" className="btn"/>
+                                <input type="submit" className="btn" value="Play" />
                             </div>
 
                         </form>
 
                     </div>
                 </section>
-
-                <Stats />
-                
-            </div>
         )
     }
 }

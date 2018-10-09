@@ -8,7 +8,6 @@ const User = require('./../models/user')
 // GET
 app.get('/api/games', (req, res) => {
 
-    let body = req.body
     let from = Number(req.query.from) || 0
     let to = Number(req.query.to) || 5
 
@@ -71,7 +70,7 @@ app.get('/api/games/player/:name', (req, res) => {
 
 })
 
-// GET Players and their wons
+// GET Players and their wons (In process)
 app.get('/api/games/top', (req, res) => {
 
     User.aggregate([{
@@ -125,9 +124,6 @@ app.put('/api/games/:id', (req, res) => {
     let id = req.params.id
     let body = req.body;
 
-    console.log(id);
-    console.log(body)
-
     Game.findOneAndUpdate({_id: id}, {pOneScore: body.pOneScore, pTwoScore: body.pTwoScore}, {new: true}, (err, updated) => {
         
         if (err) {
@@ -136,8 +132,6 @@ app.put('/api/games/:id', (req, res) => {
                 err
             })
         }
-
-        console.log(updated)
 
         res.json({
             ok: true,

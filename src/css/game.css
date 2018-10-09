@@ -57,15 +57,27 @@
     transform: translate3d(0, -10px, 0)
 }
 
-
-#rounds-details {
-    display: grid;
-    grid-template-columns: 2fr 2fr 2fr;
-    grid-template-rows: 2fr 2fr;
+#rounds-details article {
+    display: inline-table;
+    margin: 10px 10px 10px 0;
+    padding: 15px 25px;
+    text-align: center;
+    background: white;
 }
 
-#rounds-details article {
-    margin: 10px 0;
+#rounds-details article * {
+    display: inline-block;
+    opacity: 1;
+}
+
+#rounds-details article h3 {
+    padding: 10px;
+    height: 40px;
+    width: 40px;
+    line-height: 1;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.05);
+    margin: 0 15px 0 0;
 }
 
 

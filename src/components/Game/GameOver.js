@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-import * as gameActions from './../controllers/games'
+import * as gameActions from '../../controllers/games'
 
 export default class GameOver extends Component {
 
@@ -32,7 +32,7 @@ export default class GameOver extends Component {
                         <img src="/img/icons/crown.svg" alt="crown" width="100" />
                         <h1>We have a winner!</h1>
                         <p><b>{winner}</b> is the new emperor!</p>
-                        <a href="#" className="btn" onClick={this.restartGame.bind(this, game, history)}>Play again</a>
+                        <button className="btn" onClick={this.restartGame.bind(this, game, history)}>Play again</button>
                         <Link to="/" className="btn secondary">Volver a inicio</Link>
                     </header>
 
