@@ -7,7 +7,28 @@ export default class Stats extends Component {
 
     state = {
         games: [],
-        players: []
+        players: [],
+        playersWins: []
+    }
+
+    handleStatClick = e => {
+
+        try {
+
+            let statsCategories = (e.target.parentElement).children
+        
+            for (let i = 0; i < statsCategories.length; i++) {
+                
+                statsCategories[i].classList.remove('active')
+                
+            }
+
+            e.target.classList.add('active')
+
+        } catch (error) {
+            
+        }
+        
     }
 
     getResults() {
@@ -18,24 +39,41 @@ export default class Stats extends Component {
         }
     }
 
-    getLastGames() {
+    getLastGames = e => {
+
+        this.handleStatClick(e)
+
         gameActions.getAllGames()   
         .then(res => {
             this.setState({
                 games: res.data.games,
-                player: []
+                players: []
             })
         })
         .catch(err => console.log(err))                             
     }
 
-    getTopPlayers() {
+    getTopPlayers = e => {
+
+        this.handleStatClick(e)
+
+        userActions.getAllUsers()   
+        .then(res => {
+            this.setState({
+                games: [],
+                players: res.data.users
+            })
+        })
+        .catch(err => console.log(err))
+
+        this.renderLastGames()
 
         // Aqui se obtienen todos los usuarios, ordenados por la cantidad de partidos ganados
 
     }
 
     renderLastGames() {
+
         if (this.state.games.length > 0) {
 
             return (
@@ -57,12 +95,28 @@ export default class Stats extends Component {
     renderTopPlayers() {
         if (this.state.players.length > 0) {
 
+            // gameActions.getPlayerWons(this.state.players[i].name)
+            // .then(res => {
+
+            //     let playerWins = {
+            //         name: this.state.players[i].name,
+            //         wins: res.data.count
+            //     }
+
+            //     console.log(res.data);
+                
+            //     this.setState(prevState => ({
+            //         playersWins: [...prevState.playersWins, playerWins]
+            //     }))
+
+            // })
+
             return (
                 <div className="content" id="stats-results">
-                    {this.state.players.map((player, i) => (
+                    {this.state.playersWins.map((player, i) => (
                         <article>
                             <h4>{player.name}</h4>
-                            <p></p>
+                            <p>{player.wins}</p>
                         </article>
                     ))}
                 </div>
@@ -82,15 +136,15 @@ export default class Stats extends Component {
 
                     <header>
                         <h1>Statistics</h1>
-                        <a href="#" onClick={this.getLastGames.bind(this)} className="active">Last matches</a>
-                        <a href="#" onClick={this.getTopPlayers.bind(this)} >Top Players</a>
+                        <div id="stats-categories">
+                            <div onClick={this.getLastGames.bind(this)} className="active">Last matches</div>
+                            <div onClick={this.getTopPlayers.bind(this)} >Top Players</div>
+                        </div>
                     </header>
 
                     <div id="stat-results">
                         {(this.state.games.length > 0) ? this.renderLastGames() : this.renderTopPlayers()}
                     </div>
-
-                    {/* { (this.shouldComponentUpdate()) ? this.getResults() : null } */}
                     
                 </div>
             </section>

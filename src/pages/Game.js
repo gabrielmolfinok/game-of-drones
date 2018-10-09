@@ -9,7 +9,6 @@ import * as gameActions from './../controllers/games'
 export default class Game extends Component {
 
   state = {
-    round: 1,
     turn: 1,
     moves: [],
     dbMoves: [],
@@ -23,7 +22,7 @@ export default class Game extends Component {
 
   refreshGame = (game) => {
     this.setState({
-      round: 1,
+      rounds: undefined,
       turn: 1,
       moves: [],
       pOneScore: 0,
@@ -68,19 +67,19 @@ export default class Game extends Component {
       // PlayerTwo wins
       this.setState({ pTwoScore: this.state.pTwoScore+1 })
       this.ifOver(this.state.pOneScore, this.state.pTwoScore+1)
-      return console.log('PlayerTwo wins this round');
+      return this.state.game.playerTwo;
 
     } else if (move.name === lastMove.name) {
 
       // Empate
-      return console.log('Draw');
+      return 'Draw';
 
     } else {
 
       // PlayerOne wins
       this.setState({ pOneScore: this.state.pOneScore+1 })
       this.ifOver(this.state.pOneScore+1, this.state.pTwoScore)
-      return console.log('PlayerOne wins this round');
+      return this.state.game.playerOne;
 
     }
 
@@ -92,16 +91,33 @@ export default class Game extends Component {
 
     if (this.state.turn === 2 ) {
 
-
       // Comprobar quien gano
-      this.getRoundWinner(move)
-      
+      let roundWinner = this.getRoundWinner(move)
+
       this.setState(prevState => ({
         moves: [...prevState.moves, move]
       }))
 
+      
+      if (!this.state.rounds) {
+        // Primer Round
+        this.setState({
+          rounds: [
+            {
+              winner: roundWinner
+            }
+          ]
+        })
+
+      } else {
+        
+        this.setState(prevState => ({
+          rounds: [...prevState.rounds, { number: this.state.rounds.length, winner: roundWinner }]
+        }))
+        
+      }      
+
       this.setState({
-        round: this.state.round+1,
         turn: 1
       })
 
@@ -143,8 +159,35 @@ export default class Game extends Component {
 
   }
 
-  componentDidMount() {
-    console.log(this.state)
+  showRounds() {
+    if (this.state.rounds) {
+      // Ya paso el primer Round
+      return (
+        <div className="content" align="left">
+          <h2>Rounds details</h2>
+          <div id="rounds-details">
+            {this.state.rounds.map((round, i) => (
+              <article>
+                <h3>Round: {i+1}</h3>
+                <p>Winner: {round.winner}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div className="content" align="left">
+          <h2>Rounds details</h2>
+          <div id="rounds-details">
+            <article>
+              <h3>Round: 1</h3>
+              <p>Winner: Waiting...</p>
+            </article>
+          </div>
+        </div>
+      )
+    }
   }
   
 
@@ -175,7 +218,7 @@ export default class Game extends Component {
           
             <header align="center">
 
-              <h3 id="round">Round {this.state.round}</h3>
+              <h3 id="round">Round {(this.state.rounds) ? this.state.rounds.length+1 : '1'}</h3>
               
               <div id="player-turn">
                 <p className={(this.state.turn === 1 ) ? "active" : ""}>{this.state.game.playerOne}</p>
@@ -188,10 +231,10 @@ export default class Game extends Component {
 
             </header>
 
-            
-
-
+        
             {this.getMoves()}
+
+            {this.showRounds()}
   
 
           </div>

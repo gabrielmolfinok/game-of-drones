@@ -17,6 +17,11 @@ const GameSchema = new Schema({
     pTwoScore: {
         type: Number,
         default: 0
+    },
+    playedAt: {
+        type: Date,
+        default: new Date(),
+        required: true
     }
 });
 

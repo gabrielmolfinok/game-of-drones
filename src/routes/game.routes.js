@@ -15,6 +15,7 @@ app.get('/api/games', (req, res) => {
     Game.find( { } )
         .skip(from)
         .limit(to)
+        .sort('playedAt')
         .exec( (err, games) => {
 
             if (err) {
@@ -36,18 +37,20 @@ app.get('/api/games', (req, res) => {
 
 
 // GET (Games a player's won)
-app.get('/api/games/:name', (req, res) => {
+app.get('/api/games/player/:name', (req, res) => {
 
     let name = req.params.name
 
-    Game.find( 
+    Game.find( {
 
-        { $and: [ 
-            { $or: [ { playerOne: name }, { playerTwo: name } ] },
-            { $or: [ { pOneScore: { $eq: 3 } }, { pTwoScore: { $eq: 3 } } ] }
-        ] } )
-
-                .exec( (err, games) => {
+        $or: [ 
+            { $and: [ { playerOne: name }, { pOneScore: { $eq: 3 } } ] },
+            { $and: [ { playerTwo: name }, { pTwoScore: { $eq: 3 } } ] } 
+        ]
+        
+        } )
+    
+        .exec( (err, games) => {
 
                     if (err) {
                         return res.status(400).json({
@@ -56,20 +59,31 @@ app.get('/api/games/:name', (req, res) => {
                         })
                     }
 
-                    Game.count({  }, (err, count) => {
-
-                        res.json({
-                            ok: true,
-                            player: name,
-                            games,
-                            count
-                        })
-    
-                    } )
+                    res.json({
+                        ok: true,
+                        player: name,
+                        wins: games.length
+                    })
 
                     
                 })
             
+
+})
+
+// GET Players and their wons
+app.get('/api/games/top', (req, res) => {
+
+    User.aggregate([{
+        $lookup: {
+          from: 'users',
+          pipeline: [  ],
+          as: 'games'
+        }
+    }]).exec(function(err, users) {
+        console.log(users)
+    });
+
 
 })
 

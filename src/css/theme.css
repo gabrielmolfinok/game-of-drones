@@ -14,6 +14,10 @@ body {
     background: linear-gradient(120deg, #242498, #247398);
 }
 
+.btn.secondary {
+    background: #13134c;
+}
+
 .accent {
     color: #242498;
     opacity: 1;
@@ -25,9 +29,14 @@ form input[type="text"]:focus {
 }
 
 #score,
-#stats header a.active,
+#stats-categories div.active,
+#stats-categories div.active:hover,
 #stats-results article p {
     background: #13134c !important;
+}
+
+#stats-categories div:hover {
+    background: #13134c33 !important;
 }
 
 #login,
@@ -38,7 +47,7 @@ form input[type="text"]:focus {
 #game-finished header,
 #round,
 #score,
-#stats header a,
+#stats-categories div,
 #stats-results article p  {
     border-radius: 30px;
 }

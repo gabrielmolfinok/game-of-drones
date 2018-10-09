@@ -33,7 +33,7 @@ export default class GameOver extends Component {
                         <h1>We have a winner!</h1>
                         <p><b>{winner}</b> is the new emperor!</p>
                         <a href="#" className="btn" onClick={this.restartGame.bind(this, game, history)}>Play again</a>
-                        <Link to="/">Volver a inicio</Link>
+                        <Link to="/" className="btn secondary">Volver a inicio</Link>
                     </header>
 
                 </div>

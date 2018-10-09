@@ -57,6 +57,18 @@
     transform: translate3d(0, -10px, 0)
 }
 
+
+#rounds-details {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    grid-template-rows: 2fr 2fr;
+}
+
+#rounds-details article {
+    margin: 10px 0;
+}
+
+
 #moves .move * {
     pointer-events: none;
 }
