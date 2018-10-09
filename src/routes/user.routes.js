@@ -76,7 +76,7 @@ app.post('/api/users', (req, res) => {
     user.save( (err, saved) => {
 
         if (err) {
-            return res.status(400).json({
+            return res.json({
                 ok: false,
                 err: {
                     message: 'El usuario ya existe'

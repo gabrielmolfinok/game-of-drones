@@ -5,23 +5,18 @@ import * as gameActions from '../../controllers/games'
 
 export default class GameOver extends Component {
 
-    restartGame = (game, history, e) => {
+    restartGame = (game, e) => {
 
         e.preventDefault()
-
-        console.log(game.playerOne, game.playerTwo);
-
         gameActions.addGame(game.playerOne, game.playerTwo)
-                    .then(res => {
-                        console.log('juego creado: ', res.data.game)
-                        this.props.refreshGame(res.data.game)
-                    })
+                    .then(res => { this.props.refreshGame(res.data.game) })
                     .catch(err => console.log(err)) 
+
     }
 
     render() {
 
-        const { game, winner, history } = this.props
+        const { game, winner } = this.props
 
         return (
 
@@ -32,7 +27,7 @@ export default class GameOver extends Component {
                         <img src="/img/icons/crown.svg" alt="crown" width="100" />
                         <h1>We have a winner!</h1>
                         <p><b>{winner}</b> is the new emperor!</p>
-                        <button className="btn" onClick={this.restartGame.bind(this, game, history)}>Play again</button>
+                        <button className="btn" onClick={this.restartGame.bind(this, game)}>Play again</button>
                         <Link to="/" className="btn secondary">Volver a inicio</Link>
                     </header>
 

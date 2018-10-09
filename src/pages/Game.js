@@ -32,7 +32,6 @@ export default class Game extends Component {
       gameOver: false,
       winner: ''
     })
-    console.log('Cambio a juego: ', game.id);
   }
 
   componentWillUnmount = () => {
