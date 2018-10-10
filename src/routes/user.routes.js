@@ -70,13 +70,9 @@ app.get('/api/users/:name', (req, res) => {
 app.post('/api/users', (req, res) => {
 
     let body = req.body
-    
-    let user = new User({
-        name: body.user
-    })
 
     User.
-    find({ name: user.name }).
+    find({ name: body.user }).
     exec(( err, user ) => {
 
         User.
@@ -85,6 +81,10 @@ app.post('/api/users', (req, res) => {
             if (count > 0) {
                 return
             }
+
+            let user = new User({
+                name: body.user
+            })
 
             user.
             save( (err, saved) => {
