@@ -72,15 +72,20 @@ app.post('/api/users', (req, res) => {
     let body = req.body
 
     User.
-    find({ name: body.user }).
-    exec(( err, user ) => {
+    countDocuments({ name: body.user }).
+    exec(( err, count ) => {
 
-        User.
-        countDocuments({}, ( err, count ) => {
+        if (count > 0) {
 
-            if (count > 0) {
-                return
-            }
+            return res.json({
+                ok: false,
+                err: {
+                    message: 'El usuario ya existe',
+                    err
+                }
+            })
+
+        } else {
 
             let user = new User({
                 name: body.user
@@ -89,14 +94,14 @@ app.post('/api/users', (req, res) => {
             user.
             save( (err, saved) => {
         
-                res.json({ 
+                return res.json({ 
                     ok: true,
                     user: saved
                 })
         
             })
 
-        })
+        }        
 
     })
 

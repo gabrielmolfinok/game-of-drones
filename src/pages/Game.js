@@ -16,16 +16,11 @@ export default class Game extends Component {
     pOneScore: 0,
     pTwoScore: 0,
     game: this.props.location.state.game,
-    gameOver: false,
-    winner: ''
+    gameOver: false
   }
 
 
   refreshGame = (game) => {
-
-    if (game) {
-      this.setState({ game })
-    }
 
     this.setState({
       rounds: undefined,
@@ -36,21 +31,24 @@ export default class Game extends Component {
       gameOver: false,
       winner: ''
     })
+    
+    if (game) {
+      this.setState({ game })
+    }
 
   }
 
-  componentWillUnmount = () => {
-    // Se debe borrar el state
-    this.refreshGame()
-  }
+  // componentWillUnmount = () => {
+  //   // Se debe borrar el state
+  //   this.refreshGame()
+  // }
 
 
   endGame = (winner, pOneScore, pTwoScore) => {
 
     gameActions.endGame(this.state.game, pOneScore, pTwoScore)
-                  .catch(err => console.log(err))
-
-    this.setState({ gameOver: true, winner })
+    .then(() => this.setState({ gameOver: true, winner }) )
+    .catch(err => console.log(err))    
 
   }
 
@@ -114,7 +112,7 @@ export default class Game extends Component {
         
         // No es el primer Round, se debe agregar éste útlimo al state
         this.setState(prevState => ({
-          rounds: [...prevState.rounds, { number: this.state.rounds.length, winner: roundWinner }]
+          rounds: [...prevState.rounds, { winner: roundWinner }]
         }))
         
       }      
@@ -141,15 +139,6 @@ export default class Game extends Component {
 
   }
 
-  getMoves() {
-
-    moveActions.getAllMoves()
-                  .then(res => { this.setState({ dbMoves: res.data.moves }) })
-
-    return <MovesList moves={this.state.dbMoves} click={this.handleMoveClick} />
-
-  }
-
   showRounds() {
 
     let rounds = this.state.rounds
@@ -166,6 +155,12 @@ export default class Game extends Component {
     )
 
   }  
+
+  componentDidMount() {
+    moveActions.getAllMoves()
+    .then(res => { this.setState({ dbMoves: res.data.moves }) })
+  }
+  
 
   render() {
 
@@ -191,8 +186,8 @@ export default class Game extends Component {
 
             </header>
 
-        
-            {this.getMoves()}
+  
+            {(this.state.dbMoves.length > 0) ? <MovesList moves={this.state.dbMoves} click={this.handleMoveClick} /> : <h3 className="content">Loading moves...</h3>}
 
 
             <div className="content" align="left">
@@ -214,7 +209,7 @@ export default class Game extends Component {
           </div>
         </section>
 
-        {(this.state.gameOver) ? <GameOver game={this.state.game} winner={this.state.winner} history={this.props.history} refreshGame={this.refreshGame} /> : null}
+        {(this.state.gameOver) ? <GameOver game={this.state.game} winner={this.state.winner} refreshGame={this.refreshGame} /> : null}
 
       </div>
 

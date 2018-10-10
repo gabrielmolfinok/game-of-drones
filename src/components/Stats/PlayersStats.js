@@ -4,11 +4,15 @@ import * as gameActions from './../../controllers/games'
 
 export default class PlayersStats extends Component {
 
-    state = { }
+    state = { 
+        message: ''
+    }
 
     getPlayerStats = e => {
 
         e.preventDefault()
+        
+        this.setState({ message: 'Searching...' })
 
         let search = document.getElementById('name').value
 
@@ -65,9 +69,9 @@ export default class PlayersStats extends Component {
         return (
             <form id="player-finder" className="white-txt content" onSubmit={this.getPlayerStats.bind(this)}>
 
-                <input id="name" type="text" placeholder="Player name here..." />
+                <input id="name" type="text" placeholder="Type here and press Enter" required autoComplete="off" />
 
-                { (this.state.data) ? this.handleResults() : null }
+                { (this.state.data) ? this.handleResults() : <p className="content">{this.state.message}</p> }
                 
             </form>
         )

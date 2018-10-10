@@ -85,7 +85,7 @@ export default class MovesList extends Component {
 
                             <div className="input-zone">
                                 <input type="text" id="editMoveName" defaultValue={move.name} />
-                                <img src="/img/icons/delete.svg" alt="delete" width="25" onClick={this.deleteMove.bind(this, move)} />
+                                <img src="/img/icons/delete.svg" alt="delete" width="25" style={{ marginRight: '20px' }} onClick={this.deleteMove.bind(this, move)} />
                             </div>
 
                             <h3>Kills: </h3>
