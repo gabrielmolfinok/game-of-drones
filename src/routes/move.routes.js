@@ -74,21 +74,38 @@ app.put('/api/moves/editname/:id', (req, res) => {
     let body = req.body
 
     Move.
-    findOneAndUpdate( { _id }, { name: body.newName }, { new: true }, (err, updated) => {
-        
-        if (err) {
-            return res.status(400).json({
-                ok: false,
-                err
-            })
-        }
+    find( { _id } ).
+    exec(( err, move ) => {
 
-        res.json({
-            ok: true,
-            move: updated
+        let oldName = move[0].name
+
+        Move.
+        findOneAndUpdate( { _id }, { name: body.newName }, { new: true }, (err, updated) => {
+    
+            Move.
+            findOneAndUpdate( { kills: oldName }, { kills: body.newName }, { new: true }, (err, updated) => {
+                if (err) {
+                    console.log(err);
+                }
+            })
+            
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                })
+            }
+    
+            res.json({
+                ok: true,
+                move: updated
+            })
+    
         })
 
+
     })
+
 
 })
 

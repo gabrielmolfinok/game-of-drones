@@ -5,6 +5,14 @@ import * as moveActions from './../../controllers/moves'
 
 export default class MovesList extends Component {
 
+    state = {
+        value: undefined
+    }
+
+    getValue = e => {
+        this.setState({ value: e.target.value })
+    }
+
     addNewMove = e => {
 
         e.preventDefault()
@@ -13,13 +21,8 @@ export default class MovesList extends Component {
         let kills = document.getElementById('newMoveKills').value
 
         moveActions.addMove(name, kills)
-        .then( alert(`${name.charAt(0).toUpperCase() + name.slice(1)} added! `) )
-
-        document.getElementById('newMoveName').value = ''
-
-        console.log(document.getElementById('newMoveName').value);
-
-        return
+        .then(() => document.getElementById('newMoveName').value = '' )
+        .catch( err => alert('Error: ', err) )
 
     }
 
@@ -27,10 +30,21 @@ export default class MovesList extends Component {
 
         e.preventDefault()
 
-        let newName = document.getElementById('editMoveName').value.toLowerCase()
+        if (this.state.value) {
 
-        moveActions.editMoveName(move, newName)
-        .then( alert(`${move.name.charAt(0).toUpperCase() + move.name.slice(1)} now is ${newName.charAt(0).toUpperCase() + newName.slice(1)} `) )
+            let newName = this.state.value.toLowerCase()            
+            moveActions.editMoveName(move, newName)
+            .then(() => {
+                alert(`${move.name.charAt(0).toUpperCase() + move.name.slice(1)} now is ${newName.charAt(0).toUpperCase() + newName.slice(1)} `)
+                this.setState({ value: undefined })
+            })
+
+        } else {
+
+            alert('Must insert a new name')
+
+        }
+
 
     }
 
@@ -51,9 +65,8 @@ export default class MovesList extends Component {
 
         if (confirm) {
             moveActions.deleteMove(move)
-            .then( alert(`${moveName} deleted `) )            
+            .catch( err => console.log(err))           
         }
-
 
     }
 
@@ -84,7 +97,7 @@ export default class MovesList extends Component {
                         <div>
 
                             <div className="input-zone">
-                                <input type="text" id="editMoveName" defaultValue={move.name} />
+                                <input type="text" id="editMoveName" defaultValue={move.name} onChange={this.getValue.bind(this)} required />
                                 <img src="/img/icons/delete.svg" alt="delete" width="25" style={{ marginRight: '20px' }} onClick={this.deleteMove.bind(this, move)} />
                             </div>
 
