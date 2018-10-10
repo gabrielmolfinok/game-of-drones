@@ -31,17 +31,17 @@ export default class PlayersStats extends Component {
                 <div id="player-results">
                     <article>
                         <h3>Created at </h3>
-                        <p>{this.state.data.created}</p>
+                        <p>{this.state.data.player.created}</p>
                     </article>
     
                     <article>
                         <h3>Games played </h3>
-                        <p>{this.state.data.played}</p>
+                        <p>{this.state.data.player.played}</p>
                     </article>
     
                     <article>
                         <h3>Games won </h3>
-                        <p>{this.state.data.wins}</p>
+                        <p>{this.state.data.player.wins}</p>
                     </article>
                 </div>
     
@@ -65,7 +65,7 @@ export default class PlayersStats extends Component {
         return (
             <form id="player-finder" className="white-txt content" onSubmit={this.getPlayerStats.bind(this)}>
 
-                <input id="name" type="text" placeholder="Player name here..." autoComplete="off" />
+                <input id="name" type="text" placeholder="Player name here..." />
 
                 { (this.state.data) ? this.handleResults() : null }
                 

@@ -22,46 +22,33 @@ export default class Game extends Component {
 
 
   refreshGame = (game) => {
+
+    if (game) {
+      this.setState({ game })
+    }
+
     this.setState({
       rounds: undefined,
       turn: 1,
       lastMove: {},
       pOneScore: 0,
       pTwoScore: 0,
-      game,
       gameOver: false,
       winner: ''
     })
+
   }
 
   componentWillUnmount = () => {
     // Se debe borrar el state
-    try {
-      
-      this.setState({
-        rounds: undefined,
-        turn: 1,
-        lastMove: {},
-        dbMoves: [],
-        pOneScore: 0,
-        pTwoScore: 0,
-        game: {},
-        gameOver: false,
-        winner: ''
-      })
-
-    } catch (error) {
-
-      console.log('Solucion')
-      
-    }
+    this.refreshGame()
   }
 
 
   endGame = (winner, pOneScore, pTwoScore) => {
 
     gameActions.endGame(this.state.game, pOneScore, pTwoScore)
-                  .then(res => console.log(res))
+                  .catch(err => console.log(err))
 
     this.setState({ gameOver: true, winner })
 
@@ -159,12 +146,7 @@ export default class Game extends Component {
     moveActions.getAllMoves()
                   .then(res => { this.setState({ dbMoves: res.data.moves }) })
 
-    return (
-
-      <MovesList moves={this.state.dbMoves} click={this.handleMoveClick} />
-
-
-    )
+    return <MovesList moves={this.state.dbMoves} click={this.handleMoveClick} />
 
   }
 

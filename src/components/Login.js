@@ -32,20 +32,16 @@ export default class Login extends Component {
         userActions.addUser(game.playerOne)
                     // Usuario creado y lo manda al this.state
                     .then(res => { game.playerOne = res.data.user })
-                    .catch(err => 
-                        // Usuario ya existe...
-                        console.log('El usuario 1 ya existe') )
 
         userActions.addUser(game.playerTwo)
                     .then(res => { game.playerTwo = res.data.user })
-                    .catch(err => console.log('El usuario 2 ya existe') )
 
         gameActions.addGame(game.playerOne, game.playerTwo)
                     .then(res => {
                         let game = res.data.game
                         this.props.history.push({ pathname: '/game', state: { game }})
                     })
-                    .catch(err => {alert('Hubo error al crear el juego'); console.log(err)})      
+                    .catch(err => {alert('Error while creating the game'); console.log(err)})      
         
            
     }

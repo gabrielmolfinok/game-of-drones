@@ -46,9 +46,10 @@ form input[type="text"]:focus {
 
 #login,
 #stats,
+#moves,
 .btn,
 #player-turn,
-#moves .move,
+#game-moves .move,
 #game-finished header,
 #round,
 #score,
@@ -56,12 +57,14 @@ form input[type="text"]:focus {
 #rounds-details article h3,
 #stats-categories a,
 #stats-results article p,
-form#player-finder input  {
+form#player-finder input,
+form select   {
     border-radius: 30px;
 }
 
 #login,
 #stats,
+#moves,
 #game-finished header {
     box-shadow: 0 30px 100px -20px #13134c33;
 }

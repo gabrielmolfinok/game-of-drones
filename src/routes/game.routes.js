@@ -11,23 +11,24 @@ app.get('/api/games', (req, res) => {
     let from = Number(req.query.from) || 0
     let to = Number(req.query.to) || 5
 
-    Game.find( { } )
-        .skip(from)
-        .limit(to)
-        .sort('playedAt')
-        .exec( (err, games) => {
+    Game.
+    find().
+    skip( from ).
+    limit( to ).
+    sort({ 'playedAt': 'desc' }).
+    exec( (err, games) => {
 
-            if (err) {
-                return res.status(400).json({
-                    ok: false,
-                    err
-                })
-            }
-
-            res.json({
-                ok: true,
-                games
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
             })
+        }
+
+        res.json({
+            ok: true,
+            games
+        })
         
     })
             
@@ -40,37 +41,38 @@ app.get('/api/games/player/:name', (req, res) => {
 
     let name = req.params.name
 
-    // Primero encuentra el jugador...
-    User.find({ name })
-    .exec( (err, dbPlayer) => {
+    User.
+    find({ name }).
+    exec(( err, dbPlayer ) => {
 
         try {
             
-            let player = dbPlayer[0]
+            let player = {
+                _id: dbPlayer[0]._id,
+                name: dbPlayer[0].name,
+                created: dbPlayer[0].created,
+                played: 0,
+                wins: 0
+            }
     
-            // Luego encuentra todos los partidos en los que jugo
-            Game.find({ $or: [{ playerOne: player.name }, { playerTwo: player.name }]})
-            .exec((err, gamesPlayed) => {
+            Game.
+            find({ $or: [{ playerOne: player.name }, { playerTwo: player.name }] }).
+            exec(( err, gamesPlayed ) => {
     
-                // La longitud del arreglo significa los partidos que jugó
                 player.played = gamesPlayed.length
                 
-                // Luego encuentra en los cuales ganó
-                Game.find( { $or: [ 
+                Game.
+                find( { $or: [ 
                         { $and: [ { playerOne: name }, { pOneScore: { $eq: 3 } } ] },
                         { $and: [ { playerTwo: name }, { pTwoScore: { $eq: 3 } } ] } 
-                    ] } )
-                .exec((err, gamesWon) => {
+                    ] } ).
+                exec(( err, gamesWon ) => {
     
-                    // La longitud del arreglo significa los partidos que ganó
-                    player.won = gamesWon.length
+                    player.wins = gamesWon.length
                     
                     res.json({
                         ok: true,
-                        name: player.name,
-                        wins: player.won,
-                        played: player.played,
-                        created: player.created
+                        player
                     })
                     
                 })
@@ -104,7 +106,8 @@ app.post('/api/games', (req, res) => {
         playerTwo: body.playerTwo
     })
 
-    game.save( (err, saved) => {
+    game.
+    save( (err, saved) => {
 
         if (err) {
             return res.status(400).json({
@@ -131,7 +134,8 @@ app.put('/api/games/:id', (req, res) => {
     let id = req.params.id
     let body = req.body;
 
-    Game.findOneAndUpdate({_id: id}, {pOneScore: body.pOneScore, pTwoScore: body.pTwoScore}, {new: true}, (err, updated) => {
+    Game.
+    findOneAndUpdate({_id: id}, {pOneScore: body.pOneScore, pTwoScore: body.pTwoScore}, {new: true}, (err, updated) => {
         
         if (err) {
             return res.status(400).json({

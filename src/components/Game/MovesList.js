@@ -8,7 +8,7 @@ export default class MovesList extends Component {
 
         return (
 
-            <div id="moves" className="content">
+            <div id="game-moves" className="content">
 
                 { moves.map((move, i) => (
 

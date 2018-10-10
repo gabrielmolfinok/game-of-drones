@@ -14,28 +14,29 @@ const User = require('./../models/user')
 // GET
 app.get('/api/users', (req, res) => {
 
-    User.find({ })
-            .exec( (err, users) => {
+    User.
+    find().
+    exec( (err, users) => {
 
-                if (err) {
-                    return res.status(400).json({
-                        ok: false,
-                        err
-                    })
-                }
-
-                User.countDocuments({ }, (err, count) => {
-
-                    res.json({
-                        ok: true,
-                        users,
-                        count
-                    })
-
-                } )
-
-                
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
             })
+        }
+
+        User.countDocuments({ }, (err, count) => {
+
+            res.json({
+                ok: true,
+                users,
+                count
+            })
+
+        } )
+
+        
+    })
 
 })
 
@@ -43,23 +44,24 @@ app.get('/api/users/:name', (req, res) => {
 
     let name = req.params.name
 
-    User.find({ name })
-            .exec( (err, user) => {
+    User.
+    find({ name }).
+    exec( (err, user) => {
 
-                if (err) {
-                    return res.status(400).json({
-                        ok: false,
-                        err
-                    })
-                }
-
-                res.json({
-                    ok: true,
-                    user
-                })
-
-                
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
             })
+        }
+
+        res.json({
+            ok: true,
+            user
+        })
+
+        
+    })
 
 })
 
@@ -73,24 +75,31 @@ app.post('/api/users', (req, res) => {
         name: body.user
     })
 
-    user.save( (err, saved) => {
+    User.
+    find({ name: user.name }).
+    exec(( err, user ) => {
 
-        if (err) {
-            return res.json({
-                ok: false,
-                err: {
-                    message: 'El usuario ya existe'
-                }
+        User.
+        countDocuments({}, ( err, count ) => {
+
+            if (count > 0) {
+                return
+            }
+
+            user.
+            save( (err, saved) => {
+        
+                res.json({ 
+                    ok: true,
+                    user: saved
+                })
+        
             })
-        }
 
-        res.json({ 
-            ok: true,
-            user: saved
         })
 
-
     })
+
 
 
 })

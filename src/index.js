@@ -7,15 +7,15 @@ import App from './App'
 import './css/btn.css'
 import './css/form.css'
 import './css/game.css'
-import './css/login.css'
 import './css/master.css'
 import './css/stats.css'
 import './css/theme.css'
 import './css/topbar.css'
 
 // Pages
-import Home from './pages/Home'
 import Game from './pages/Game'
+import Home from './pages/Home'
+import Moves from './pages/Moves'
 
 import createBrowserHistory from 'history/createBrowserHistory';
 const history = createBrowserHistory();
@@ -27,6 +27,7 @@ ReactDOM.render(
         <App>
             <Switch>
                 <Route path="/game" component={Game} exact />
+                <Route path="/moves" component={Moves} exact />
                 <Route path="/" component={Home} />
             </Switch>
         </App>
