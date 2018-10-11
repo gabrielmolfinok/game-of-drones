@@ -26,15 +26,12 @@ export default class Game extends Component {
       rounds: undefined,
       turn: 1,
       lastMove: {},
+      game,
       pOneScore: 0,
       pTwoScore: 0,
       gameOver: false,
       winner: ''
     })
-    
-    if (game) {
-      this.setState({ game })
-    }
 
   }
 
@@ -61,23 +58,24 @@ export default class Game extends Component {
     
     let lastMove = this.state.lastMove
 
-    if (move.kills === lastMove.name) {
-        
-      this.setState({ pTwoScore: this.state.pTwoScore+1 })
-      this.ifOver(this.state.pOneScore, this.state.pTwoScore+1)
-      return this.state.game.playerTwo;
-
-    } else if (move.name === lastMove.name) { 
+    if (lastMove.kills === move.name) {
       
-      return 'Draw';
-
-    } else {
-
       this.setState({ pOneScore: this.state.pOneScore+1 })
       this.ifOver(this.state.pOneScore+1, this.state.pTwoScore)
       return this.state.game.playerOne;
 
-    }    
+    } else if (move.kills === lastMove.name) {
+
+      this.setState({ pTwoScore: this.state.pTwoScore+1 })
+      this.ifOver(this.state.pOneScore, this.state.pTwoScore+1)
+      return this.state.game.playerTwo;
+
+    } else {
+
+      return 'Draw';
+
+    }
+   
 
   }
 

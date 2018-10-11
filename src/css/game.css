@@ -14,17 +14,13 @@
 
 #player-turn {
     display: inline-block;
-    max-width: 300px;
-    width: 100%;
-    /* padding: 10px; */
     background: white;
     overflow: hidden;
 }
 
 #player-turn p {
-    float: left;
-    width: 50%;
-    padding: 10px;
+    display: inline-block;
+    padding: 10px 20px;
     cursor: default;
     user-select: none;
     transition: .2s all;

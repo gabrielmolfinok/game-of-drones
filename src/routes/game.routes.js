@@ -103,7 +103,8 @@ app.post('/api/games', (req, res) => {
     
     let game = new Game({
         playerOne: body.playerOne,
-        playerTwo: body.playerTwo
+        playerTwo: body.playerTwo,
+        playedAt: new Date()
     })
 
     game.

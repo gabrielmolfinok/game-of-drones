@@ -54,39 +54,6 @@ p {
     text-align: left;
 }
 
-#moves {
-    max-width: 500px;
-}
-
-#moves form .input-zone {
-    position: relative;
-    margin: 0 0 20px 0 !important;
-}
-
-#moves form input[type="text"] {
-    text-transform: capitalize;
-}
-
-#moves form img {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    z-index: 1;
-    opacity: .5;
-    transition: .2s opacity;
-}
-
-#moves form img:hover {
-    opacity: 1
-}
-
-#moves form h3 {
-    float: left;
-    margin: 0 15px 0 0;
-}
-
 
 
 

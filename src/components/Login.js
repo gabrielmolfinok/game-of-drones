@@ -30,18 +30,17 @@ export default class Login extends Component {
         }
 
         userActions.addUser(game.playerOne)
-                    // Usuario creado y lo manda al this.state
-                    .then(res => { game.playerOne = res.data.user })
+        .then(res => { game.playerOne = res.data.user })
 
         userActions.addUser(game.playerTwo)
-                    .then(res => { game.playerTwo = res.data.user })
+        .then(res => { game.playerTwo = res.data.user })
 
         gameActions.addGame(game.playerOne, game.playerTwo)
-                    .then(res => {
-                        let game = res.data.game
-                        this.props.history.push({ pathname: '/game', state: { game }})
-                    })
-                    .catch(err => {alert('Error while creating the game'); console.log(err)})      
+        .then(res => {
+            let game = res.data.game
+            this.props.history.push({ pathname: '/game', state: { game }})
+        })
+        .catch(err => alert('Error creating the game', err) )      
         
            
     }
@@ -50,33 +49,34 @@ export default class Login extends Component {
         return (
 
             <section id="login">
-                    <div className="container">
+                <div className="container">
 
-                        <header>
-                            <h1>New game</h1>
-                            <p>Enter your names to start the game.</p>
-                        </header>
-                    
-                        <form className="content" onSubmit={this.handleSubmit.bind(this)} >
+                    <header>
+                        <h1>New game</h1>
+                        <p>Enter your names to start the game.</p>
+                    </header>
+                
+                    <form className="content" onSubmit={this.handleSubmit.bind(this)} >
 
-                            <div>
-                                <label htmlFor="player1" className="accent">Player One</label>
-                                <input type="text" id="playerOne" placeholder="Player one name..." onChange={this.handleInput.bind(this)} required />
-                            </div>
+                        <div>
+                            <label htmlFor="player1" className="accent">Player One</label>
+                            <input type="text" id="playerOne" placeholder="Player one name..." onChange={this.handleInput.bind(this)} required />
+                        </div>
 
-                            <div>
-                                <label htmlFor="player2" className="accent">Player Two</label>
-                                <input type="text" id="playerTwo" placeholder="Player two name..." onChange={this.handleInput.bind(this)} required />
-                            </div>
+                        <div>
+                            <label htmlFor="player2" className="accent">Player Two</label>
+                            <input type="text" id="playerTwo" placeholder="Player two name..." onChange={this.handleInput.bind(this)} required />
+                        </div>
 
-                            <div>
-                                <input type="submit" className="btn" value="Play" />
-                            </div>
+                        <div>
+                            <input type="submit" className="btn" value="Play" />
+                        </div>
 
-                        </form>
+                    </form>
 
-                    </div>
-                </section>
+                </div>
+            </section>
+
         )
     }
 }

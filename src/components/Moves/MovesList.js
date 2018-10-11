@@ -1,5 +1,6 @@
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 import * as moveActions from './../../controllers/moves'
 
@@ -97,7 +98,7 @@ export default class MovesList extends Component {
                         <div>
 
                             <div className="input-zone">
-                                <input type="text" id="editMoveName" defaultValue={move.name} onChange={this.getValue.bind(this)} required />
+                                <input type="text" id="editMoveName" placeholder={move.name} onChange={this.getValue.bind(this)} required />
                                 <img src="/img/icons/delete.svg" alt="delete" width="25" style={{ marginRight: '20px' }} onClick={this.deleteMove.bind(this, move)} />
                             </div>
 
@@ -114,7 +115,7 @@ export default class MovesList extends Component {
                 )) }
 
                 <form onSubmit={this.addNewMove.bind(this)}>
-                    <div>
+                    <div style={{ margin: '50px 0 0 0' }}>
 
                         <div className="input-zone">
                             <input id="newMoveName" type="text" placeholder="New move..." autoComplete="off" required />
@@ -126,7 +127,11 @@ export default class MovesList extends Component {
                                 <option key={i}>{move.name.charAt(0).toUpperCase() + move.name.slice(1)}</option>
                             ))}
                         </select>
-                        <input type="submit" style={{ display: 'none' }} />
+
+                        <div>
+                            <Link to="/" className="btn secondary">Go back</Link>
+                            <input type="submit" value="Create" className="btn" />
+                        </div>                        
 
                     </div>
                 </form>

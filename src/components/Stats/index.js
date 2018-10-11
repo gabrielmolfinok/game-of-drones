@@ -6,19 +6,6 @@ import PlayersStats from './PlayersStats';
 
 export default class Stats extends Component {
 
-    handleClick = e => {
-        let tabs = (e.target.parent).children
-
-        for (let i = 0; i < tabs.length; i++) {
-            
-            tabs[i].classList.remove('active')
-            
-        }
-
-        e.target.classList.add('active')
-    }
-    
-
     render() {
         return (
             <Router>

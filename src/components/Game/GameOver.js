@@ -9,7 +9,7 @@ export default class GameOver extends Component {
 
         e.preventDefault()
         gameActions.addGame( game.playerOne, game.playerTwo )
-        .then( res => { this.props.refreshGame(res.data.game) } )
+        .then( res => this.props.refreshGame(res.data.game) )
         .catch( err => console.log(err) ) 
 
     }

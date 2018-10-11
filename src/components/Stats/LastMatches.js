@@ -7,10 +7,8 @@ export default class LastMatches extends Component {
     getLastMatches() {
 
         gameActions.getAllGames()   
-            .then(res => {
-                this.setState({ lastMatches: res.data.games })
-            })
-            .catch(err => console.log(err))
+            .then( res => this.setState({ lastMatches: res.data.games }) )
+            .catch( err => console.log(err) )
 
     }
 
@@ -38,16 +36,13 @@ export default class LastMatches extends Component {
 
     }
 
-    componentWillMount = () => {
-        this.getLastMatches()
-    }
-    
+    componentWillMount = () => this.getLastMatches()    
 
     render() {
 
         return (
             <div className="content" id="stats-results">
-                {(this.state) ? this.renderLastMatches() : (<p>Loading...</p>)}                
+                { (this.state) ? this.renderLastMatches() : <p>Loading...</p> }                
             </div>
         )
     }

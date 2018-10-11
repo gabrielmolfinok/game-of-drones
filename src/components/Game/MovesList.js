@@ -1,26 +1,23 @@
-import React, { Component } from 'react'
 
-export default class MovesList extends Component {
+import React from 'react'
 
-    render() {
+export default ({ moves, click }) => {
+  
+    return (
 
-        const { moves, click } = this.props
+        <div id="game-moves" className="content">
 
-        return (
+            { moves.map((move, i) => (
 
-            <div id="game-moves" className="content">
+                <article className="move" key={i} onClick={click.bind(this, move)}>
+                    <h2>{move.name}</h2>
+                </article>
 
-                { moves.map((move, i) => (
+            )) }
 
-                    <article className="move" key={i} onClick={click.bind(this, move)}>
-                        <h2>{move.name}</h2>
-                    </article>
+        </div>
 
-                )) }
-
-            </div>
-
-        )
-    }
+    )
 
 }
+

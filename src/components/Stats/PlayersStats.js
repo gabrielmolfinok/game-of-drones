@@ -4,9 +4,7 @@ import * as gameActions from './../../controllers/games'
 
 export default class PlayersStats extends Component {
 
-    state = { 
-        message: ''
-    }
+    state = { message: '' }
 
     getPlayerStats = e => {
 
@@ -19,8 +17,8 @@ export default class PlayersStats extends Component {
         if (search.length > 0) {
 
             gameActions.getPlayerWons(search)
-                .then(res => this.setState({ data: res.data }))
-                .catch(err => this.setState({ data: undefined }))
+                .then( res => this.setState({ data: res.data }) )
+                .catch( err => this.setState({ data: undefined }) )
 
         }
 
@@ -50,6 +48,7 @@ export default class PlayersStats extends Component {
                 </div>
     
             )
+            
         } else {
 
             return (
