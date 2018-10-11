@@ -6,13 +6,17 @@ import MovesList from './../components/Moves/MovesList'
 
 export default class Moves extends Component {
 
-    state = {
-        moves: []
-    }
+    state = { moves: [] }
+    
+    _isMounted = false
 
     getMoves() {
         moveActions.getAllMoves()
-        .then(res => this.setState({ moves: res.data.moves }))
+        .then(res => {
+            if (this._isMounted) {
+                this.setState({ moves: res.data.moves })                
+            }
+        })
 
         if (this.state.moves.length > 0) {
             return <MovesList moves={this.state.moves} />
@@ -21,9 +25,14 @@ export default class Moves extends Component {
         return <h3>Loading...</h3>
     }
 
-    componentWillMount = () => {
-      
-    }    
+    componentDidMount() {
+      this._isMounted = true
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false
+      }
+    
 
     render() {
         return (
