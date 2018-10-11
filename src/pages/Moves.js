@@ -7,8 +7,12 @@ import MovesList from './../components/Moves/MovesList'
 export default class Moves extends Component {
 
     state = { moves: [] }
-    
+
     _isMounted = false
+
+    componentDidMount = () => this._isMounted = true
+
+    componentWillUnmount = () => this._isMounted = false
 
     getMoves() {
         moveActions.getAllMoves()
@@ -23,16 +27,7 @@ export default class Moves extends Component {
         }
 
         return <h3>Loading...</h3>
-    }
-
-    componentDidMount() {
-      this._isMounted = true
-    }
-
-    componentWillUnmount() {
-        this._isMounted = false
-      }
-    
+    }    
 
     render() {
         return (
