@@ -38,11 +38,6 @@ export default class Game extends Component {
 
   }
 
-  // componentWillUnmount = () => {
-  //   // Se debe borrar el state
-  //   this.refreshGame()
-  // }
-
 
   endGame = (winner, pOneScore, pTwoScore) => {
 
@@ -54,14 +49,11 @@ export default class Game extends Component {
 
   ifOver(pOneScore, pTwoScore) {
 
-    // Esta funcion controla si el score es de 3 para alguno de los jugadores
     if (pOneScore === 3) {
       this.endGame(this.state.game.playerOne, pOneScore, pTwoScore)
     } else if (pTwoScore === 3) {
       this.endGame(this.state.game.playerTwo, pOneScore, pTwoScore)
     }
-
-    return
 
   }
 
@@ -71,26 +63,21 @@ export default class Game extends Component {
 
     if (move.kills === lastMove.name) {
         
-      // PlayerTwo wins
       this.setState({ pTwoScore: this.state.pTwoScore+1 })
       this.ifOver(this.state.pOneScore, this.state.pTwoScore+1)
       return this.state.game.playerTwo;
 
-    } else if (move.name === lastMove.name) {
-
-      // Empate
+    } else if (move.name === lastMove.name) { 
+      
       return 'Draw';
 
     } else {
 
-      // PlayerOne wins
       this.setState({ pOneScore: this.state.pOneScore+1 })
       this.ifOver(this.state.pOneScore+1, this.state.pTwoScore)
       return this.state.game.playerOne;
 
-    }
-
-    
+    }    
 
   }
 
@@ -98,44 +85,31 @@ export default class Game extends Component {
 
     if (this.state.turn === 2 ) {
 
-      // Comprobar quien gano
       let roundWinner = this.getRoundWinner(move)
       
       if (!this.state.rounds) {
 
-        // Es el primer Round, se debe crear en el state
-        this.setState({
-          rounds: [ { winner: roundWinner } ]
-        })
+        this.setState({ rounds: [ { winner: roundWinner } ] })
 
       } else {
         
-        // No es el primer Round, se debe agregar éste útlimo al state
-        this.setState(prevState => ({
-          rounds: [...prevState.rounds, { winner: roundWinner }]
-        }))
+        this.setState(prevState => ({ rounds: [...prevState.rounds, { winner: roundWinner }] }))
         
       }      
 
-      // Se cambia de turno
       this.setState({
         turn: 1
       })
 
     } else {
 
-      // Se cambia de turno
       this.setState({
         turn: 2
       })
 
     }
     
-    // Se suma el último movimiento al state
     this.setState({ lastMove: move })
-
-    return
-
 
   }
 
@@ -157,8 +131,10 @@ export default class Game extends Component {
   }  
 
   componentDidMount() {
+    
     moveActions.getAllMoves()
     .then(res => { this.setState({ dbMoves: res.data.moves }) })
+    
   }
   
 
