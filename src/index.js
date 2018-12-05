@@ -18,8 +18,8 @@ import Game from './pages/Game'
 import Home from './pages/Home'
 import Moves from './pages/Moves'
 
-import createBrowserHistory from 'history/createBrowserHistory';
-const history = createBrowserHistory();
+import createBrowserHistory from 'history/createBrowserHistory'
+export const history = createBrowserHistory()
 
 ReactDOM.render(
 
@@ -35,4 +35,4 @@ ReactDOM.render(
 
     </Router>
     
-, document.getElementById('root'));
+, document.getElementById('root'))

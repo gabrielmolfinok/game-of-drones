@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import * as userActions from '../controllers/users'
-import * as gameActions from '../controllers/games'
 
 export default class Login extends Component {
 
@@ -24,24 +23,19 @@ export default class Login extends Component {
 
         e.preventDefault()
 
-        const game = {
-            playerOne: this.state.playerOneName,
-            playerTwo: this.state.playerTwoName
-        }
+        let pOneInput = document.getElementById('pOne').value
+        let pTwoInput = document.getElementById('pTwo').value
 
-        userActions.addUser(game.playerOne)
-        .then(res => { game.playerOne = res.data.user })
+        if (pOneInput === pTwoInput)
+            return window.alert('Insert different players')        
 
-        userActions.addUser(game.playerTwo)
-        .then(res => { game.playerTwo = res.data.user })
+        userActions.addUser(pOneInput)
+        .then(res => console.log(res))
 
-        gameActions.addGame(game.playerOne, game.playerTwo)
-        .then(res => {
-            let game = res.data.game
-            this.props.history.push({ pathname: '/game', state: { game }})
-        })
-        .catch(err => alert('Error creating the game', err) )      
+        userActions.addUser(pTwoInput)
+        .then(res => console.log(res))     
         
+        this.props.history.push({ pathname: `/game`, state: { pOne: pOneInput, pTwo: pTwoInput} })        
            
     }
         
@@ -59,13 +53,13 @@ export default class Login extends Component {
                     <form className="content" onSubmit={this.handleSubmit.bind(this)} >
 
                         <div>
-                            <label htmlFor="player1" className="accent">Player One</label>
-                            <input type="text" id="playerOne" placeholder="Player one name..." onChange={this.handleInput.bind(this)} required />
+                            <label htmlFor="pOne" className="accent">Player One</label>
+                            <input type="text" id="pOne" placeholder="Player one name..." required />
                         </div>
 
                         <div>
-                            <label htmlFor="player2" className="accent">Player Two</label>
-                            <input type="text" id="playerTwo" placeholder="Player two name..." onChange={this.handleInput.bind(this)} required />
+                            <label htmlFor="pTwo" className="accent">Player Two</label>
+                            <input type="text" id="pTwo" placeholder="Player two name..." required />
                         </div>
 
                         <div>

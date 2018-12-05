@@ -1,20 +1,19 @@
-import React, { Component } from 'react'
-
+import React from 'react'
 import Topbar from './components/Topbar'
 
+const App = (props) => {
+  return (
+    <div>
 
-export default class App extends Component {
+        <Topbar />
+        
+        { props.children }
 
-    render() {
-
-        return (
-            <div>
-
-                <Topbar />
-                
-                {this.props.children}
-
-            </div>
-        )
-    }
+    </div>
+  )
 }
+
+export default App
+
+
+
